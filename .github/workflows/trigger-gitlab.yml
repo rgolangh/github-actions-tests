@@ -1,0 +1,20 @@
+# inspired by rhinstaller/anaconda
+
+name: Trigger GitLab CI
+
+# do not trigger gitlab CI on pushes to upstream
+on:
+  pull_request_target:
+  push:
+    branches:
+      - main
+
+jobs:
+  trigger-gitlab:
+    runs-on: ubuntu-latest
+    env:
+      SKIP_CI: ${{ github.event.pull_request.draft == false || !contains(github.event.pull_request.labels.*.name, 'WIP') }}
+    steps:
+      - name: Push to gitlab
+        run: |
+          echo "DEBUG SKIP_CI: ${SKIP_CI}"
