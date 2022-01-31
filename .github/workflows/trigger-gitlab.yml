@@ -13,7 +13,7 @@ jobs:
   trigger-gitlab:
     runs-on: ubuntu-latest
     env:
-      SKIP_CI: ${{ github.event.pull_request.draft == false || !contains(github.event.pull_request.labels.*.name, 'WIP') }}
+      SKIP_CI: ${{ github.event.pull_request.draft == true || contains(github.event.pull_request.labels.*.name, 'WIP') }}
     steps:
       - name: Push to gitlab
         run: |
