@@ -76,6 +76,9 @@ jobs:
   backport:
     name: Backport
     needs: parse
+    permissions:
+      contents: write
+      pull-requests: write
     uses: ./.github/workflows/backport.yml
     with:
       branch_name: ${{ needs.parse.outputs.branch_name }}
